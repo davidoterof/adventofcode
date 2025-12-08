@@ -5,6 +5,7 @@ from functools import reduce
 ops = {"+": operator.add, "-": operator.sub, "*": operator.mul, "/": operator.truediv}
 
 
+# part 1
 def solve_p1(ruta):
     with open(ruta, "r") as file:
         lines = file.readlines()
@@ -25,4 +26,32 @@ def solve_p1(ruta):
     print(int(result))
 
 
-solve_p1(sys.argv[1])
+# part 2
+def solve_p2(ruta):
+    with open(ruta, "r") as file:
+        lines = file.readlines()
+    lines = [line.rstrip("\n") for line in lines]
+    n_columns = len(lines[0])
+
+    data = lines[:-1]
+    lend = len(data)
+    numbers = []
+    total = 0
+    for i in range(n_columns - 1, -1, -1):
+        number = ""
+        for j in range(lend):
+            if lines[j][i] != " ":
+                number += lines[j][i]
+        if number != "":
+            numbers.append(int(number))
+
+        if lines[lend][i] in ops:
+            operacion = lines[lend][i]
+            result = reduce(ops[operacion], numbers)
+            total += result
+            numbers = []
+
+    print(int(total))
+
+
+solve_p2(sys.argv[1])
