@@ -5,7 +5,7 @@ from functools import reduce
 ops = {"+": operator.add, "-": operator.sub, "*": operator.mul, "/": operator.truediv}
 
 
-def solve_p1_1(ruta):
+def solve_p1(ruta):
     with open(ruta, "r") as file:
         lines = file.readlines()
 
@@ -25,4 +25,4 @@ def solve_p1_1(ruta):
     print(int(result))
 
 
-solve_p1_1(sys.argv[1])
+solve_p1(sys.argv[1])
