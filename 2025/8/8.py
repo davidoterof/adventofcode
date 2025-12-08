@@ -24,11 +24,13 @@ def solve_p1(ruta):
     with open(ruta, "r") as file:
         lines = file.readlines()
 
+    # read all points
     points = []
     for line in lines:
         x, y, z = map(float, line.strip().split(","))
         points.append((x, y, z))
 
+    # compute distances between all points
     distances = []
     for i in range(len(points)):
         for j in range(i + 1, len(points)):
@@ -37,7 +39,10 @@ def solve_p1(ruta):
             dist = euclidean_distance(p1[0], p1[1], p1[2], p2[0], p2[1], p2[2])
             distances.append((dist, i, j))
 
+    # sort distances in ascending order
     distances.sort(key=lambda x: x[0])
+
+    # build circuits
     count = 1
     circuits = []
     for dist, i, j in distances:
@@ -53,7 +58,8 @@ def solve_p1(ruta):
                     break
             if not found:
                 circuits.append({i, j})
-            # merge circuits if needed
+
+            # some circuits may have some points in common, so we need to merge them
             circuits = merge_circuits(circuits)
         if count >= 1000:
             break
@@ -84,7 +90,6 @@ def solve_p2(ruta):
             distances.append((dist, i, j))
 
     distances.sort(key=lambda x: x[0])
-    count = 1
     circuits = []
     for dist, i, j in distances:
         if len(circuits) == 0:
@@ -102,13 +107,11 @@ def solve_p2(ruta):
 
             # merge circuits if needed
             circuits = merge_circuits(circuits)
-            if len(circuits) == 1 and len(circuits[0]) == len(points):
-                print(points[i][0] * points[j][0])
-                exit()
 
-        if count >= 100000000000000000000:
-            break
-        count += 1
+            # solution when all points are connected, i.e., one circuit and len of that circuit == len(points)
+            if len(circuits) == 1 and len(circuits[0]) == len(points):
+                print(int(points[i][0] * points[j][0]))
+                exit()
 
 
 solve_p2(sys.argv[1])
