@@ -1,6 +1,7 @@
 import sys
 
 
+# common
 def euclidean_distance(x1, y1, z1, x2, y2, z2):
     return ((x2 - x1) ** 2 + (y2 - y1) ** 2 + (z2 - z1) ** 2) ** 0.5
 
@@ -20,6 +21,7 @@ def merge_circuits(circuits):
     return merged
 
 
+# part 1
 def solve_p1(ruta):
     with open(ruta, "r") as file:
         lines = file.readlines()
@@ -73,6 +75,7 @@ def solve_p1(ruta):
     print(result)
 
 
+# part 2
 def solve_p2(ruta):
     with open(ruta, "r") as file:
         lines = file.readlines()

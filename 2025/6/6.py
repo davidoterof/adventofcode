@@ -16,7 +16,7 @@ def solve_p1(ruta):
     for line in data:
         numbers = line.strip().split()
         for i, elem in enumerate(numbers):
-            arrays[i].append(float(elem))
+            arrays[i].append(int(elem))
 
     result = sum(
         [reduce(ops[operacion], array) for operacion, array in zip(operations, arrays)]
