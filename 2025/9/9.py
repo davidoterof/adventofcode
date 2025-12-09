@@ -1,4 +1,5 @@
 import sys
+import itertools
 
 # part 1
 def rectangle_area(point_a, point_b):
@@ -8,10 +9,10 @@ def rectangle_area(point_a, point_b):
     w = abs(x2 - x1) + 1
     return h * w
 
-def solve_p1(input_path):
+def solve_p1_1(input_path):
     with open(input_path, "r") as f:
         lines = f.readlines()
-    
+
     points = []
     for line in lines:
         parts = line.strip().split(",")
@@ -29,4 +30,13 @@ def solve_p1(input_path):
 
     print(max_area)
 
-solve_p1(sys.argv[1])
+def solve_p1_2(input_path):
+    with open(input_path, "r") as f:
+        lines = f.readlines()
+
+    points = [tuple(map(int, line.strip().split(","))) for line in lines]
+    best_points = max(itertools.combinations(points, 2),
+                      key=lambda points: rectangle_area(*points))
+    print(rectangle_area(*best_points))
+
+solve_p1_2(sys.argv[1])
